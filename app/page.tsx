@@ -1,4 +1,6 @@
-import Image from "next/image";
+
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,8 +12,11 @@ import {
 } from "@/components/ui/card"
 import { Gamepad2, Users, Zap, Trophy, Play } from "lucide-react";
 import { games } from "./gameList/games";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter()
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900">
       {/* Hero Section */}
@@ -36,11 +41,11 @@ export default function Home() {
             <h1 className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-6 leading-tight">
               Game On!
             </h1>
-            
+
             <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-3xl mx-auto">
               Challenge your friends in epic 2-player battles
             </p>
-            
+
             <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
               From classic games to brain-bending puzzles - compete, laugh, and create unforgettable gaming moments together!
             </p>
@@ -66,7 +71,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold text-white mb-2">Instant Play</h3>
                 <p className="text-gray-400">Jump into games instantly - no downloads required!</p>
               </div>
-              
+
               <div className="text-center">
                 <div className="bg-gradient-to-r from-purple-500 to-indigo-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Users className="w-8 h-8 text-white" />
@@ -74,7 +79,7 @@ export default function Home() {
                 <h3 className="text-xl font-semibold text-white mb-2">2-Player Focus</h3>
                 <p className="text-gray-400">Perfect games designed for you and your friend</p>
               </div>
-              
+
               <div className="text-center">
                 <div className="bg-gradient-to-r from-cyan-500 to-blue-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Trophy className="w-8 h-8 text-white" />
@@ -112,23 +117,21 @@ export default function Home() {
                   {game.description}
                 </CardDescription>
               </CardHeader>
-              
+
               <CardContent className="pt-0">
                 <div className="flex justify-between items-center mb-4 text-sm">
                   <span className="text-cyan-400 font-medium">{game.players}</span>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    game.difficulty === 'Easy' ? 'bg-green-500/20 text-green-400' :
-                    game.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' :
-                    'bg-red-500/20 text-red-400'
-                  }`}>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${game.difficulty === 'Easy' ? 'bg-green-500/20 text-green-400' :
+                      game.difficulty === 'Medium' ? 'bg-yellow-500/20 text-yellow-400' :
+                        'bg-red-500/20 text-red-400'
+                    }`}>
                     {game.difficulty}
                   </span>
                 </div>
-                
-                <Button 
-                  className={`w-full bg-gradient-to-r ${game.gradient} hover:opacity-90 text-white font-semibold transition-all duration-200 ${
-                    game.name === 'Rock Paper Scissors' ? '' : 'opacity-60 cursor-not-allowed'
-                  }`}
+
+                <Button onClick={() => router.push('/game/rock-paper')}
+                  className={`w-full bg-gradient-to-r ${game.gradient} hover:opacity-90 text-white font-semibold transition-all duration-200 ${game.name === 'Rock Paper Scissors' ? '' : 'opacity-60 cursor-not-allowed'
+                    }`}
                   disabled={game.name !== 'Rock Paper Scissors'}
                 >
                   {game.name === 'Rock Paper Scissors' ? 'Play Now' : 'Coming Soon'}
